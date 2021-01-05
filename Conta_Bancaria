@@ -1,1 +1,28 @@
+package Parte1;
+
+public class Conta_Bancaria {
+
+    private int num_conta;
+    private double saldo;
+
+    public Conta_Bancaria(int num_conta, double saldo) {
+        this.num_conta = num_conta;
+        this.saldo = saldo;
+    }
+
+    public void sacar(double valor) {
+        if (saldo > valor) {
+            saldo -= valor;
+        } else {
+            System.out.println("Valor indisponível para saque");
+        }
+    }
+
+    public void depositar(double valor) {
+
+        saldo += valor;
+
+    }
+
+}
 
