@@ -9,7 +9,7 @@ public class ContaCorrente extends ContaBancaria {
         this.taxa_op = taxa_op;
     }
 
-    public void taxa() {
+    public void descontaTaxa() {
         setSaldo(getSaldo() - getTaxa_op());
     }
 
