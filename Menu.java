@@ -25,8 +25,8 @@ public class Menu {
                     case 2:
                         System.out.print("Informe a taxa de operação da conta em reais: ");
                         double limite = input.nextDouble();
-                        //ContaPoupança cp = new ContaPoupança(limite,num_conta,saldo);
-                        //Banco.remover(cp);
+                        ContaPoupanca cp = new ContaPoupanca(limite,num_conta,saldo);
+                        Banco.remover(cp);
                         break;
                     default:
                         System.out.println("Tipo de conta inválida");
