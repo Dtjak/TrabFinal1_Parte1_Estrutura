@@ -11,8 +11,8 @@ public class Conta_Bancaria {
     }
 
     public void sacar(double valor) {
-        if (saldo > valor) {
-            saldo -= valor;
+        if (getSaldo() > valor) {
+            setSaldo(getSaldo() - valor);
         } else {
             System.out.println("Valor indisponível para saque");
         }
@@ -20,9 +20,24 @@ public class Conta_Bancaria {
 
     public void depositar(double valor) {
 
-        saldo += valor;
+        setSaldo(getSaldo() + valor);
 
     }
 
-}
+    public int getNum_conta() {
+        return num_conta;
+    }
 
+    public void setNum_conta(int num_conta) {
+        this.num_conta = num_conta;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+}
