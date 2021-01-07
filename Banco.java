@@ -4,29 +4,35 @@ import java.util.ArrayList;
 
 public class Banco {
 
-    private static ArrayList contas = new ArrayList(10);
+    private ArrayList<ContaBancaria> contas = new ArrayList<>(10);
 
-    public Banco(ArrayList contas) {
-        Banco.contas = contas;
+    public Banco(ArrayList<ContaBancaria> contas) {
+        this.contas = contas;
     }
 
-    public static void inserir(Object conta) {
+    public void inserir(ContaBancaria conta) {
         getContas().add(conta);
     }
 
-    public static void remover(Object conta) {
+    public void remover(ContaBancaria conta) {
         getContas().remove(conta);
     }
 
-    public static Object procurarConta(int num_conta) {
-        return getContas().get(num_conta);
+    public ContaBancaria procurarConta(int num_conta) {
+        ContaBancaria conta = null;
+        for (int i = 0; i < getContas().size(); i++) {
+            if (getContas().get(i).getNum_conta() == num_conta) {
+                conta = getContas().get(i);
+            }
+        }
+        return conta;
     }
 
-    public static ArrayList getContas() {
+    public ArrayList<ContaBancaria> getContas() {
         return contas;
     }
 
-    public static void setContas(ArrayList contas) {
-        Banco.contas = contas;
+    public void setContas(ArrayList<ContaBancaria> contas) {
+        this.contas = contas;
     }
 }
