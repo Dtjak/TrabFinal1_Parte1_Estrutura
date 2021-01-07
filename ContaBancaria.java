@@ -10,11 +10,12 @@ public class ContaBancaria {
         this.saldo = saldo;
     }
 
-    public void sacar(double valor) {
+    public Boolean sacar(double valor) {
         if (getSaldo() > valor) {
             setSaldo(getSaldo() - valor);
+            return true;
         } else {
-            System.out.println("Valor indisponível para saque");
+            return false;
         }
     }
 
@@ -22,6 +23,14 @@ public class ContaBancaria {
 
         setSaldo(getSaldo() + valor);
 
+    }
+
+    public void transferir(double valor, ContaBancaria conta) {
+        if (sacar(valor) == true) {
+            conta.depositar(valor);
+        } else {
+            System.out.println("Saldo insuficiente para transferência");
+        }
     }
 
     public int getNum_conta() {
