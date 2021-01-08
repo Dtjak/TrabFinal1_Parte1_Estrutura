@@ -4,35 +4,60 @@ import java.util.ArrayList;
 
 public class Banco {
 
-    private ArrayList<ContaBancaria> contas = new ArrayList<>(10);
+    private ArrayList<ContaPoupanca> contas_p = new ArrayList<>(10);
+    private ArrayList<ContaCorrente> contas_c = new ArrayList<>(10);
 
-    public Banco(ArrayList<ContaBancaria> contas) {
-        this.contas = contas;
+    public Banco() {}
+
+    public void inserirCC(ContaCorrente conta) {
+        getContasC().add(conta);
+    }
+    
+    public void inserirCP(ContaPoupanca conta) {
+        getContasP().add(conta);
     }
 
-    public void inserir(ContaBancaria conta) {
-        getContas().add(conta);
+    public void removerCC(ContaCorrente conta) {
+        getContasC().remove(conta);
+    }
+    
+    public void removerCP(ContaPoupanca conta) {
+        getContasP().remove(conta);
     }
 
-    public void remover(ContaBancaria conta) {
-        getContas().remove(conta);
+    public ContaCorrente procurarContaC(int num_conta) {
+        ContaCorrente conta = null;
+        for (int i = 0; i < getContasC().size(); i++) {
+            if (getContasC().get(i).getNum_conta() == num_conta) {
+                conta = getContasC().get(i);
+            }
+        }
+        return conta;
     }
-
-    public ContaBancaria procurarConta(int num_conta) {
-        ContaBancaria conta = null;
-        for (int i = 0; i < getContas().size(); i++) {
-            if (getContas().get(i).getNum_conta() == num_conta) {
-                conta = getContas().get(i);
+    
+    public ContaPoupanca procurarContaP(int num_conta) {
+        ContaPoupanca conta = null;
+        for (int i = 0; i < getContasP().size(); i++) {
+            if (getContasP().get(i).getNum_conta() == num_conta) {
+                conta = getContasP().get(i);
             }
         }
         return conta;
     }
 
-    public ArrayList<ContaBancaria> getContas() {
-        return contas;
+    public ArrayList<ContaCorrente> getContasC() {
+        return contas_c;
     }
 
-    public void setContas(ArrayList<ContaBancaria> contas) {
-        this.contas = contas;
+    public void setContasC(ArrayList<ContaCorrente> contas) {
+        this.contas_c = contas;
+    }
+    
+    public ArrayList<ContaPoupanca> getContasP() {
+        return contas_p;
+    }
+
+    public void setContasP(ArrayList<ContaPoupanca> contas) {
+        this.contas_p = contas;
     }
 }
