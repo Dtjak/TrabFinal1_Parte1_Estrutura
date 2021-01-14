@@ -2,23 +2,43 @@ package Parte1;
 
 public class ContaCorrente extends ContaBancaria {
 
-    private double taxa_op;
+    private double taxaDeOperacao;
 
-    public ContaCorrente(double taxa_op, int num_conta, double saldo) {
+    public ContaCorrente(double taxaDeOperacao, int num_conta, double saldo) {
         super(num_conta, saldo);
-        this.taxa_op = taxa_op;
+        this.taxaDeOperacao = taxaDeOperacao;
     }
 
-    public void descontaTaxa() {
-        setSaldo(getSaldo() - getTaxa_op());
+    @Override
+    public Boolean sacar(double valor) {
+        if (getSaldo() > valor + getTaxaDeOperacao()) {
+            setSaldo(getSaldo() - valor - getTaxaDeOperacao());
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public double getTaxa_op() {
-        return taxa_op;
+    @Override
+    public void depositar(double valor) {
+        setSaldo(getSaldo() + valor - getTaxaDeOperacao());
     }
 
-    public void setTaxa_op(double taxa_op) {
-        this.taxa_op = taxa_op;
+    @Override
+    public void transferir(double valor, ContaBancaria conta) {
+        if (sacar(valor) == true) {
+            conta.depositar(valor);
+        } else {
+            System.out.println("Saldo insuficiente para transferência");
+        }
+    }
+
+    public double getTaxaDeOperacao() {
+        return taxaDeOperacao;
+    }
+
+    public void setTaxaDeOperacao(double taxaDeOperacao) {
+        this.taxaDeOperacao = taxaDeOperacao;
     }
 
 }
