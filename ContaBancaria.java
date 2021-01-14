@@ -1,6 +1,6 @@
 package Parte1;
 
-public class ContaBancaria {
+public abstract class ContaBancaria {
 
     private int num_conta;
     private double saldo;
@@ -10,28 +10,11 @@ public class ContaBancaria {
         this.saldo = saldo;
     }
 
-    public Boolean sacar(double valor) {
-        if (getSaldo() > valor) {
-            setSaldo(getSaldo() - valor);
-            return true;
-        } else {
-            return false;
-        }
-    }
+    public abstract Boolean sacar(double valor);
 
-    public void depositar(double valor) {
+    public abstract void depositar(double valor);
 
-        setSaldo(getSaldo() + valor);
-
-    }
-
-    public void transferir(double valor, ContaBancaria conta) {
-        if (sacar(valor) == true) {
-            conta.depositar(valor);
-        } else {
-            System.out.println("Saldo insuficiente para transferência");
-        }
-    }
+    public abstract void transferir(double valor, ContaBancaria conta);
 
     public int getNum_conta() {
         return num_conta;
