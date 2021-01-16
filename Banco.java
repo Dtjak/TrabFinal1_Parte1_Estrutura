@@ -6,6 +6,7 @@ public class Banco {
 
     private ArrayList<ContaCorrente> contas_c = new ArrayList<>(10);
     private ArrayList<ContaPoupanca> contas_p = new ArrayList<>(10);
+    //uma lista para cada tipo de conta
     
     public Banco(ArrayList<ContaCorrente> contas_c, ArrayList<ContaPoupanca> contas_p) {
         this.contas_c = contas_c;
@@ -29,9 +30,9 @@ public class Banco {
     }
 
     public ContaCorrente procurarContaC(int num_conta) {
-        ContaCorrente conta = null;
-        for (int i = 0; i < getContas_c().size(); i++) {
-            if (getContas_c().get(i).getNum_conta() == num_conta) {
+        ContaCorrente conta = null; //para retornar null caso nenhuma conta seja encontrada
+        for (int i = 0; i < getContas_c().size(); i++) { //percorre a lista de contas e compara o número de conta inserido com os das contas na lista
+            if (getContas_c().get(i).getNum_conta() == num_conta) { //se encontrar o número da conta correspondente, passa os dados da conta
                 conta = getContas_c().get(i);
             }
         }
