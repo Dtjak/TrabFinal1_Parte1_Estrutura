@@ -11,7 +11,7 @@ public class ContaPoupanca extends ContaBancaria {
 
     @Override
     public Boolean sacar(double valor) {
-        if (getSaldo() + getLimite() > valor) {
+        if (getSaldo() + getLimite() > valor) { //há um valor a mais para realizar saque(limite)
             setSaldo(getSaldo() - valor);
             return true;
         } else {
