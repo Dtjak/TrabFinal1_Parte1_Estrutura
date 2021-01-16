@@ -21,17 +21,19 @@ public class Menu {
                     + "5 - Finalizar\n"
                     + "Informe a operação desejada: ");
             op = input.nextInt();
+            
             switch (op) {
                 case 1: //Criar conta
                     System.out.print("\n1 - Corrente\n2 - Poupança\nInforme o tipo de conta: ");
                     int tipo = input.nextInt();
-                    while (tipo != 1 && tipo != 2) {
+                    while (tipo != 1 && tipo != 2) { //caso o usuário digite um tipo de conta indisponível, pedir novamente
                         System.out.print("\nTipo de conta inválida.\n1 - Corrente\n2 - Poupança\nInforme o tipo de conta: ");
                         tipo = input.nextInt();
                     }
                     System.out.print("\nInforme o número da conta: ");
                     int num_conta = input.nextInt();
-                    while ((tipo == 1 && banco.procurarContaC(num_conta) != null) || (tipo == 2 && banco.procurarContaP(num_conta) != null)) {
+                    while ((tipo == 1 && banco.procurarContaC(num_conta) != null) || (tipo == 2 && banco.procurarContaP(num_conta) != null)) { 
+                    //para verificar se já existe uma conta com o mesmo número digitado para o número da conta sendo criada, caso exista, pedir outro número
                         System.out.print("Número de conta já utilizado.\n\nInforme outro número: ");
                         num_conta = input.nextInt();
                     }
@@ -41,7 +43,7 @@ public class Menu {
                         case 1:
                             System.out.print("Informe a taxa de operação da conta em reais: ");
                             double taxaDeOperacao = input.nextDouble();
-                            while (taxaDeOperacao < 0) {
+                            while (taxaDeOperacao < 0) { //caso o usuário digite um valor negativo para a taxa, pede novamente, pois não é permitido
                                 System.out.print("O valor da taxa de operação deve ser positivo.\n\nInforme a taxa de operação da conta em reais: ");
                                 taxaDeOperacao = input.nextDouble();
                             }
@@ -52,7 +54,7 @@ public class Menu {
                         case 2:
                             System.out.print("Informe o limite da conta: ");
                             double limite = input.nextDouble();
-                            while (limite < 0) {
+                            while (limite < 0) { //caso o usuário digite um valor negativo para o limite, pede novamente, pois não é permitido
                                 System.out.print("O valor do limite deve ser positivo.\n\nInforme o limite da conta: ");
                                 limite = input.nextDouble();
                             }
@@ -64,24 +66,24 @@ public class Menu {
                     break;
 
                 case 2: //Selecionar
-                    if (!contas_c.isEmpty() || !contas_p.isEmpty()) {
+                    if (!contas_c.isEmpty() || !contas_p.isEmpty()) { //caso não haja nenhuma conta registrada, não é possível selecionar uma conta e já exibe uma mensagem (linha 280-281)
                         System.out.print("\nInforme o número da conta: ");
                         int sel_num_conta = input.nextInt();
                         ContaCorrente sel_cc = banco.procurarContaC(sel_num_conta);
                         ContaPoupanca sel_cp = banco.procurarContaP(sel_num_conta);
                         int sel_tipo;
-                        if (sel_cc != null && sel_cp != null) {
+                        if (sel_cc != null && sel_cp != null) { //caso haja duas contas de tipos diferentes com o mesmo número, pede pro usuário informar qual o tipo de conta quer selecionar
                             System.out.print("\nHá duas contas com o mesmo número.\n1 - Conta Corrente\n2 - Conta Poupança\nInforme o tipo da conta que deseja selecionar: ");
                             sel_tipo = input.nextInt();
-                        } else if (sel_cc == null && sel_cp == null) {
+                        } else if (sel_cc == null && sel_cp == null) { //caso não exista uma conta com o número digitado, exibe a mensagem de conta inexistente(linha 274)
                             sel_tipo = 3;
-                        } else if (sel_cc != null) {
+                        } else if (sel_cc != null) { //se existir uma conta corrente, significa que não existe uma conta poupança com esse número
                             sel_tipo = 1;
-                        } else {
+                        } else { //se não existir uma conta corrente, significa que há uma conta poupança com esse número
                             sel_tipo = 2;
                         }
                         switch (sel_tipo) {
-                            case 1:
+                            case 1: //menu para conta corrente
                                 int op_contaC = 0;
                                 do {
                                     System.out.print("1 - Depositar\n"
@@ -95,7 +97,7 @@ public class Menu {
                                         case 1: //Depositar cc
                                             System.out.print("Informe o valor do depósito: ");
                                             double sel_valor = input.nextDouble();
-                                            while (sel_valor < 0) {
+                                            while (sel_valor < 0) { //caso o usuário digite um valor negativo, pede novamente, pois não é permitido
                                                 System.out.print("O valor do depósito deve ser positivo.\n\nInforme o valor do depósito: ");
                                                 sel_valor = input.nextDouble();
                                             }
@@ -105,26 +107,26 @@ public class Menu {
                                         case 2: //Sacar cc
                                             System.out.print("Informe o valor do saque: ");
                                             sel_valor = input.nextDouble();
-                                            while (sel_valor < 0) {
+                                            while (sel_valor < 0) { //caso o usuário digite um valor negativo, pede novamente, pois não é permitido
                                                 System.out.println("O valor do saque deve ser positivo.\n\nInforme o valor do saque: ");
                                                 sel_valor = input.nextDouble();
                                             }
-                                            if (sel_cc.sacar(sel_valor) == true) {
+                                            if (sel_cc.sacar(sel_valor) == true) { //verifica se saque é possível e, se sim, exibe mensagem
                                                 System.out.println("Saque efetuado.\n");
                                             } else {
-                                                System.out.println("\nValor de saque indisponível\n"
+                                                System.out.println("\nValor de saque indisponível\n" //caso não seja, exibe o saldo disponível
                                                         + "Saldo: " + sel_cc.getSaldo() + "\n"
                                                         + "Valor de saque inserido: " + sel_valor + "\n");
                                             }
                                             break;
                                         case 3: //Transferir cc
-                                            if (contas_c.size() + contas_p.size() > 1) {
+                                            if (contas_c.size() + contas_p.size() > 1) { //verifica se há mais de uma conta no banco, pois se só existir uma conta no banco, não é possível transferir 
                                                 System.out.print("\nInforme o número da conta que receberá a transferência: ");
                                                 int recebe_num_conta = input.nextInt();
                                                 ContaBancaria conta_c_recebe = banco.procurarContaC(recebe_num_conta);
                                                 ContaBancaria conta_p_recebe = banco.procurarContaP(recebe_num_conta);
                                                 int transf_tipo;
-                                                if (conta_c_recebe != null && conta_p_recebe != null) {
+                                                if (conta_c_recebe != null && conta_p_recebe != null) { //caso haja duas contas de tipos diferentes com o mesmo número, pede pro usuário informar a qual o tipo de conta quer transferir
                                                     System.out.print("\nHá duas contas com o mesmo número.\n1 - Conta Corrente\n2 - Conta Poupança\nInforme o tipo da conta que deseja selecionar: ");
                                                     transf_tipo = input.nextInt();
                                                 } else if (conta_c_recebe == null && conta_p_recebe == null) {
@@ -138,8 +140,8 @@ public class Menu {
                                                     case 1:
                                                         System.out.print("Informe o valor da transferência: ");
                                                         double transf_valor = input.nextDouble();
-                                                        while (transf_valor < 0) {
-                                                            System.out.print("O valor da transferência deve ser positivo.\n\nInforme o valor da transferência: ");
+                                                        while (transf_valor < 0) { //caso o usuário digite um valor negativo, pede novamente, pois não é permitido
+                                                            System.out.print("O valor da transferência deve ser positivo.\n\nInforme o valor da transferência: "); 
                                                             transf_valor = input.nextDouble();
                                                         }
                                                         sel_cc.transferir(transf_valor, conta_c_recebe);
@@ -176,7 +178,7 @@ public class Menu {
                                     }
                                 } while (op_contaC != 5);
                                 break;
-                            case 2:
+                            case 2: //menu para conta poupança
                                 int op_contaP = 0;
                                 do {
                                     System.out.print("1 - Depositar\n"
@@ -281,13 +283,13 @@ public class Menu {
                     break;
 
                 case 3: //Excluir conta
-                    if (!contas_c.isEmpty() || !contas_p.isEmpty()) {
+                    if (!contas_c.isEmpty() || !contas_p.isEmpty()) { //caso não haja nenhuma conta registrada no banco, não é possível excluir
                         System.out.print("Informe o número da conta que deseja excluir: ");
                         int del_num_conta = input.nextInt();
                         ContaCorrente del_cc = banco.procurarContaC(del_num_conta);
                         ContaPoupanca del_cp = banco.procurarContaP(del_num_conta);
                         int del_tipo;
-                        if (del_cc != null && del_cp != null) {
+                        if (del_cc != null && del_cp != null) { //caso haja duas contas de tipos diferentes com o mesmo número, pede pro usuário informar a qual o tipo de conta quer transferir
                             System.out.print("Há duas contas com o mesmo número.\n1 - Conta Corrente\n2 - Conta Poupança\nInforme o tipo da conta que deseja selecionar: ");
                             del_tipo = input.nextInt();
                             System.out.println();
@@ -317,8 +319,8 @@ public class Menu {
                     break;
 
                 case 4: //Gerar relatório
-                    if (!contas_c.isEmpty() || !contas_p.isEmpty()) {
-                        if (!contas_c.isEmpty()) {
+                    if (!contas_c.isEmpty() || !contas_p.isEmpty()) { //caso não haja nenhuma conta registrada no banco, não tentará exibir nada
+                        if (!contas_c.isEmpty()) { //verifica se há contas corrente para exibir dados
                             System.out.print("\n=====Contas Corrente=====\n");
                             for (int i = 0; i < banco.getContas_c().size(); i++) {
                                 relatorio.mostrarDadosCC(banco.getContas_c().get(i));
@@ -337,7 +339,7 @@ public class Menu {
                     }
                     break;
 
-                case 5:
+                case 5: 
                     System.out.println("Aplicação encerrada.\n");
                     break;
                 default:
