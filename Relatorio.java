@@ -9,16 +9,10 @@ public class Relatorio {
     public Relatorio() {}
     
     public void mostrarDadosCC(ContaCorrente conta) {
-        System.out.println("DADOS DA CONTA"
-                + "\nNúmero da Conta: " + conta.getNum_conta()
-                + "\nSaldo: " + conta.getSaldo()
-                + "\nTaxa de Operação: " + conta.getTaxaDeOperacao());
+        System.out.printf("DADOS DA CONTA\nNúmero da Conta: %d\nSaldo: R$ %.2f\nLimite: R$ %.2f\n",conta.getNum_conta(),conta.getSaldo(),conta.getTaxaDeOperacao());
     }
     
     public void mostrarDadosCP(ContaPoupanca conta) {
-        System.out.println("DADOS DA CONTA"
-                + "\nNúmero da Conta: " + conta.getNum_conta()
-                + "\nSaldo: " + conta.getSaldo()
-                + "\nLimite: " + conta.getLimite());
+        System.out.printf("DADOS DA CONTA\nNúmero da Conta: %d\nSaldo: R$ %.2f\nLimite: R$ %.2f\n",conta.getNum_conta(),conta.getSaldo(),conta.getLimite());
     }
 }
