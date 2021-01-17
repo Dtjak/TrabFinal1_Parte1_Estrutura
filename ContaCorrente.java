@@ -40,5 +40,9 @@ public class ContaCorrente extends ContaBancaria {
     public void setTaxaDeOperacao(double taxaDeOperacao) {
         this.taxaDeOperacao = taxaDeOperacao;
     }
+    
+    public void descontaTaxa() {
+        setSaldo(getSaldo() + getTaxaDeOperacao());
+    }
 
 }
