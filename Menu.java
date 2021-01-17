@@ -151,7 +151,7 @@ public class Menu {
                                                 ContaCorrente conta_c_recebe = banco.procurarContaC(recebe_num_conta);
                                                 ContaPoupanca conta_p_recebe = banco.procurarContaP(recebe_num_conta);
                                                 int transf_tipo;
-                                                if (conta_c_recebe != null && conta_p_recebe != null) { 
+                                                if ((conta_c_recebe != null && conta_p_recebe != null) && sel_cc.getNum_conta() != recebe_num_conta) { 
                                                 /*caso haja duas contas de tipos diferentes com o mesmo número, 
                                                 pede pro usuário informar o tipo da conta para a qual deseja transferir*/
                                                     System.out.print("\nHá duas contas com o mesmo número.\n"
@@ -161,10 +161,10 @@ public class Menu {
                                                     transf_tipo = input.nextInt();
                                                 } else if (conta_c_recebe == null && conta_p_recebe == null) {
                                                     transf_tipo = 3;
-                                                } else if (conta_c_recebe != null) {
-                                                    transf_tipo = 1;
-                                                } else {
+                                                } else if (conta_p_recebe != null) {
                                                     transf_tipo = 2;
+                                                } else {
+                                                    transf_tipo = 1;
                                                 }
                                                 switch (transf_tipo) {
                                                     case 1:
@@ -177,6 +177,7 @@ public class Menu {
                                                             transf_valor = input.nextDouble();
                                                         }
                                                         sel_cc.transferir(transf_valor, conta_c_recebe);
+                                                        conta_c_recebe.descontaTaxa();
                                                         System.out.println("Transferência efetuada.");
                                                         break;
                                                     case 2:
@@ -257,7 +258,7 @@ public class Menu {
                                                 ContaCorrente conta_c_recebe = banco.procurarContaC(recebe_num_conta);
                                                 ContaPoupanca conta_p_recebe = banco.procurarContaP(recebe_num_conta);
                                                 int transf_tipo;
-                                                if (conta_c_recebe != null && conta_p_recebe != null) {
+                                                if ((conta_c_recebe != null && conta_p_recebe != null)&& sel_cc.getNum_conta() != recebe_num_conta) {
                                                     System.out.print("\nHá duas contas com o mesmo número.\n"
                                                             + "1 - Conta Corrente\n"
                                                             + "2 - Conta Poupança\n"
