@@ -3,9 +3,8 @@ package Parte1;
 //Para C. Corrente, informa: número, saldo e taxa
 //Para C. Poupança, informa: número, saldo e limite
 
-
-
 public class Relatorio {
+    
     public Relatorio() {}
     
     public void mostrarDadosCC(ContaCorrente conta) {
@@ -22,4 +21,5 @@ public class Relatorio {
                 + "Saldo: R$ %.2f\n"
                 + "Limite: R$ %.2f\n",conta.getNum_conta(),conta.getSaldo(),conta.getLimite());
     }
+    
 }
